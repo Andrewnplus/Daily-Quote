@@ -1,0 +1,49 @@
+body {
+    background: linear-gradient(to right, #F4C095, #eae2b7);
+    color: #071E22;
+    font-family: Arial, sans-serif;
+}
+
+.btn {
+    background-color: #FCB5AC;
+    border-color: #679280;
+}
+
+button {
+    border: none;
+    padding: 10px 20px;
+    margin-top: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+button:hover {
+    background-color: #B99095;
+}
+
+.panel {
+    border-color: #679280 !important;
+}
+
+.panel-heading {
+    color: #071E22;
+    background-color: #679280;
+    border-color: #679280;
+}
+
+.container {
+    width: 800px;
+    margin: 0 auto;
+}
+
+h1, h2, h3 {
+    text-align: center;
+}
+
+hr {
+    border: none;
+    border-top: 1px solid #ccc;
+    margin: 20px 0;
+}
+
+
