@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Daily Quote</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="https://code.jquery.com/jquery-2.2.2.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/quote.js"></script>
+    <script src="js/client.js"></script>
+
+    <script src="js/metric.js"></script>
+</head>
+<body id="indexBackground">
+<div class="container">
+    <h1> Daily Quote </h1>
+    <hr>
+
+    <div class="row">
+        <div class="col">
+            <h3>System Status</h3>
+            <div class="center">
+                <div class="status-light red" id="offLight"></div>
+                <div class="status-light green" id="onLight"></div>
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="alert alert-danger" id="notLoggedIn">Start Your Day After Logging</div>
+    <div class="alert alert-info text-hidden" id="loggedIn"></div>
+    <hr>
+    <div class="row">
+        <div class="col">
+            <div class="panel panel-default" id="login">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Login</h3>
+                </div>
+                <div class="panel-body">
+                    <form id="loginForm">
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="exampleInputEmail1" placeholder="username"
+                                   required name="username">
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control" id="exampleInputPassword1"
+                                   placeholder="password" required name="password">
+                        </div>
+                        <div class="well">
+                            Try one of following members: username | password | roles | status
+                            <ul>
+                                <li>andrew | admin | user & admin | activated</li>
+                                <li>link | zelda | user | activated</li>
+                                <li>stale | old | user | inactivated</li>
+                            </ul>
+                        </div>
+                        <button type="submit" class="btn btn-default">login</button>
+                    </form>
+                </div>
+            </div>
+            <div id="userInfo">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Authenticated user</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div id="userInfoBody"></div>
+                        <button type="button" class="btn btn-default" id="logoutButton">logout</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col">
+            <h3> Daily Quote </h3>
+            <div class="card border border-5 mb-3">
+                <div class="card-body">
+                    <p class="card-text" id="quote_text">Quote Text</p>
+                    <h6 class="card-title" id="quote_author">Author</h6>
+                    <h5 class="card-subtitle mb-2 text-muted" id="update_date">Update Date</h5>
+                    <textarea id="user_comment" class="form-control"
+                              placeholder="Write something here..."></textarea>
+                    <div class="btn-group" role="group" aria-label="..." style="margin-top: 16px;">
+                        <button type="button" class="btn btn-default" id="DailyQuoteBtn">Get</button>
+                        <button type="button" class="btn btn-default" id="SaveQuoteBtn">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <h3> My Quotes </h3>
+    <div id="quotesContainer">
+        <!-- insert card dynamically -->
+    </div>
+    <button type="button" class="btn btn-primary" id="GetUserQuotesBtn">Show</button>
+    <template id="quoteCardTemplate">
+        <div class="card my-3">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h5 class="card-title">Quote Text Here</h5>
+                        <p class="card-text">Author Name Here</p>
+                    </div>
+                    <div class="col-md-4">
+                        <p class="card-text"><small class="text-muted">Last Updated Here</small></p>
+                        <p class="card-text">Note Here</p>
+                    </div>
+                    <div class="col-md-2 d-flex align-items-start justify-content-end">
+                        <button class="btn btn-danger deleteBtn">Delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+    <hr>
+    <div class="row">
+        <div class="col">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">All Members in the System</h3>
+                </div>
+                <div class="panel-body">
+                    <pre id="response_get_all_members"></pre>
+                </div>
+            </div>
+            <div class="btn-group" role="group" aria-label="..." style="margin-bottom: 16px;">
+                <button type="button" class="btn btn-default" id="adminServiceBtn">Reveal</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" tabindex="-1" role="dialog" id="loginErrorModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Login unsuccessful</h4>
+            </div>
+            <div class="modal-body"></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
