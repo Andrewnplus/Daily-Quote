@@ -16,6 +16,9 @@
 
 * How to Start: Use the Spring Boot Maven plugin (`mvn spring-boot:run`) to run the application. It will be accessible
   at http://localhost:8080.
+  * Recommended Java version: 17.0.7
+  * Recommended Maven version: 3.6.3
+  * Recommended OS: linux
 * How to Check the Data in the Database: Access [H2-Console](http://localhost:8080/h2-console/) to view the data.
 
 ### Scenario
