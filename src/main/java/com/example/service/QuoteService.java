@@ -13,16 +13,15 @@ public class QuoteService {
     private final QuoteRepository quoteRepository;
 
     @Autowired
-    public QuoteService(QuoteRepository quoteRepository) {
+    public QuoteService(final QuoteRepository quoteRepository) {
         this.quoteRepository = quoteRepository;
     }
 
-
-    public Optional<Quote> getQuote(long id) {
+    @Cacheable("quotes")
+    public Optional<Quote> getQuote(final long id) {
         return quoteRepository.findById(id);
     }
 
-    @Cacheable("quotes")
     public Quote getRandomQuote() {
         return quoteRepository.findRandomQuote();
     }

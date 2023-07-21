@@ -3,7 +3,9 @@ package com.example.security.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.BatchSize;
 
 import javax.persistence.*;
@@ -12,6 +14,7 @@ import java.util.Set;
 
 @Entity
 @Getter
+@Setter
 @Table
 public class User {
     @JsonIgnore
@@ -42,4 +45,17 @@ public class User {
             inverseJoinColumns = {@JoinColumn(name = "AUTHORITY_NAME", referencedColumnName = "NAME")})
     @BatchSize(size = 20)
     private Set<Authority> authorities = new HashSet<>();
+
+    @Builder
+    public User(Long id, String username, String password, boolean activated, Set<Authority> authorities) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.activated = activated;
+        this.authorities = authorities;
+    }
+
+    public User() {
+
+    }
 }

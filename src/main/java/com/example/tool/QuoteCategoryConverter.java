@@ -9,7 +9,7 @@ import javax.persistence.Converter;
 public class QuoteCategoryConverter implements AttributeConverter<QuoteCategory, String> {
 
     @Override
-    public String convertToDatabaseColumn(QuoteCategory category) {
+    public String convertToDatabaseColumn(final QuoteCategory category) {
         if (category == null) {
             return null;
         }
@@ -17,7 +17,7 @@ public class QuoteCategoryConverter implements AttributeConverter<QuoteCategory,
     }
 
     @Override
-    public QuoteCategory convertToEntityAttribute(String dbData) {
+    public QuoteCategory convertToEntityAttribute(final String dbData) {
         if (dbData == null) {
             return null;
         }

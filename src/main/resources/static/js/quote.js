@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    var quoteData = null;
+    let quoteData = null;
     const dailyQuoteBtn = $("#DailyQuoteBtn");
     const saveQuoteBtn = $("#SaveQuoteBtn");
     dailyQuoteBtn.prop('disabled', false);
@@ -29,8 +29,8 @@ $(document).ready(function () {
         if (quoteData) {
             quoteData.userComment = $("#user_comment").val();
 
-            var httpMethod = quoteData.userQuoteId ? 'PUT' : 'POST';
-            var url = '/api/userQuote';
+            const httpMethod = quoteData.userQuoteId ? 'PUT' : 'POST';
+            const url = '/api/userQuote';
             $.ajax({
                 url: url,
                 type: httpMethod,
@@ -86,6 +86,7 @@ $(document).ready(function () {
         $.ajax({
             url: '/api/userQuote/' + quoteId,
             type: 'PATCH',
+            contentType: "application/json; charset=utf-8",
             headers: createAuthorizationTokenHeader(),
             success: function (result) {
                 $card.remove();

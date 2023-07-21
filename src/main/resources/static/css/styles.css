@@ -46,4 +46,24 @@ hr {
     margin: 20px 0;
 }
 
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+}
 
+.status-light {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    opacity: 0.1;
+}
+
+.red {
+    background-color: #f44336;
+}
+
+.green {
+    background-color: #4CAF50;
+}

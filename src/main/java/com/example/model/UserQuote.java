@@ -1,6 +1,7 @@
 package com.example.model;
 
 import com.example.security.model.User;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -26,5 +27,20 @@ public class UserQuote {
     @ManyToOne
     @JoinColumn(name = "quote_id", nullable = false)
     private Quote quote;
+
+    @Builder
+    public UserQuote(Long id, User user, Date updatedDate, String comment, boolean deleted, Quote quote) {
+        this.id = id;
+        this.user = user;
+        this.updatedDate = updatedDate;
+        this.comment = comment;
+        this.deleted = deleted;
+        this.quote = quote;
+
+    }
+
+    public UserQuote() {
+
+    }
 }
 

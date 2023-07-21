@@ -11,13 +11,11 @@ import java.io.IOException;
 @Component
 public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
 
-   @Override
-   public void commence(HttpServletRequest request,
-                        HttpServletResponse response,
-                        AuthenticationException authException) throws IOException {
-      // This is invoked when user tries to access a secured REST resource without supplying any credentials
-      // We should just send a 401 Unauthorized response because there is no 'login page' to redirect to
-      // Here you can place any message you want
-      response.sendError(HttpServletResponse.SC_UNAUTHORIZED, authException.getMessage());
-   }
+    @Override
+    public void commence(final HttpServletRequest request,
+                         final HttpServletResponse response,
+                         final AuthenticationException authException) throws IOException {
+        // Send a 401 Unauthorized response when accessing a protected resource without the jwt token
+        response.sendError(HttpServletResponse.SC_UNAUTHORIZED, authException.getMessage());
+    }
 }

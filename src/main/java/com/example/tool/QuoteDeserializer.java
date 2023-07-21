@@ -21,7 +21,7 @@ public class QuoteDeserializer extends StdDeserializer<Quote> {
     }
 
     @Override
-    public Quote deserialize(JsonParser jp, DeserializationContext ctxt)
+    public Quote deserialize(final JsonParser jp,final  DeserializationContext ctxt)
             throws IOException {
         JsonNode node = jp.getCodec().readTree(jp);
         String text = node.get("text").asText();

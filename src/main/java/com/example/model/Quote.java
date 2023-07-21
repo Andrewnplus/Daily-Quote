@@ -1,8 +1,8 @@
 package com.example.model;
 
-import com.example.tool.QuoteCategoryConverter;
 import com.example.tool.QuoteDeserializer;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -22,4 +22,16 @@ public class Quote {
     private String text;
     private String author;
     private QuoteCategory category;
+
+    @Builder
+    public Quote(Long id, String text, String author, QuoteCategory category) {
+        this.id = id;
+        this.text = text;
+        this.author = author;
+        this.category = category;
+    }
+
+    public Quote() {
+
+    }
 }

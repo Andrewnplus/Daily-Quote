@@ -16,14 +16,13 @@ public class UserController {
     private final UserService userService;
 
     @Autowired
-    public UserController(UserService userService) {
+    public UserController(final UserService userService) {
         this.userService = userService;
     }
 
     @GetMapping("/user")
     public ResponseEntity<User> getActualUser() {
-        //Do we really get the data via it?
-        return ResponseEntity.ok(userService.getUserWithAuthorities().get());
+        return ResponseEntity.ok(userService.getUserWithAuthorities().orElseThrow());
     }
 
     @GetMapping("/users")

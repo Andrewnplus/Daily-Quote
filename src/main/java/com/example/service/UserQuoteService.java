@@ -27,14 +27,15 @@ public class UserQuoteService {
         this.userService = userService;
     }
 
-    public UserQuoteDto create(UserQuoteDto userQuoteDto) {
+    public UserQuoteDto create(final UserQuoteDto userQuoteDto) {
         quoteService.getQuote(userQuoteDto.getQuoteId()).map(quote -> {
-            UserQuote userQuote = new UserQuote();
-            userQuote.setComment(userQuoteDto.getUserComment());
-            userQuote.setQuote(quote);
-            userQuote.setUpdatedDate(new Date());
-            User user = userService.getUserWithAuthorities().get();
-            userQuote.setUser(user);
+            final User user = userService.getUserWithAuthorities().orElseThrow();
+            final UserQuote userQuote = UserQuote.builder()
+                    .comment(userQuoteDto.getUserComment())
+                    .quote(quote)
+                    .updatedDate(new Date())
+                    .user(user)
+                    .build();
             userQuoteRepository.save(userQuote);
             userQuoteDto.setUserQuoteId(userQuote.getId());
             return userQuoteDto;
@@ -42,7 +43,7 @@ public class UserQuoteService {
         return userQuoteDto;
     }
 
-    public UserQuoteDto update(UserQuoteDto userQuoteDto) {
+    public UserQuoteDto update(final UserQuoteDto userQuoteDto) {
         userQuoteRepository.findById(userQuoteDto.getUserQuoteId()).map(userQuote -> {
             userQuote.setComment(userQuoteDto.getUserComment());
             userQuote.setUpdatedDate(new Date());
@@ -57,7 +58,7 @@ public class UserQuoteService {
         final Quote quote = quoteService.getRandomQuote();
         final Optional<UserQuote> userQuoteOptional = userQuoteRepository.findByQuote(quote);
         if (userQuoteOptional.isPresent() && !userQuoteOptional.get().isDeleted()) {
-            UserQuote userQuote = userQuoteOptional.get();
+            final UserQuote userQuote = userQuoteOptional.get();
             return UserQuoteDto.builder()
                     .userQuoteId(userQuote.getId())
                     .quoteText(quote.getText())
@@ -74,8 +75,8 @@ public class UserQuoteService {
                 .build();
     }
 
-    public boolean softDelete(Long id) {
-        AtomicBoolean deleted = new AtomicBoolean(false);
+    public boolean softDelete(final Long id) {
+        final AtomicBoolean deleted = new AtomicBoolean(false);
         final Optional<UserQuote> userQuoteOptional = userQuoteRepository.findById(id);
         userQuoteOptional.ifPresent(userQuote -> {
             userQuote.setDeleted(true);
@@ -86,7 +87,7 @@ public class UserQuoteService {
     }
 
     public List<UserQuote> getUserQuotesByUserId() {
-        User user = userService.getUserWithAuthorities().get();
+        final User user = userService.getUserWithAuthorities().orElseThrow();
         return userQuoteRepository.findByUserAndDeletedFalse(user);
     }
 }

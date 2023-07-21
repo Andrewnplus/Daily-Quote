@@ -6,13 +6,30 @@
     <link rel="stylesheet" href="css/styles.css">
     <script src="https://code.jquery.com/jquery-2.2.2.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="js/auth.js"></script>
     <script src="js/quote.js"></script>
     <script src="js/client.js"></script>
+
+    <script src="js/metric.js"></script>
 </head>
 <body id="indexBackground">
 <div class="container">
     <h1> Daily Quote </h1>
+    <hr>
+
+    <div class="row">
+        <div class="col">
+            <h3>System Status</h3>
+            <div class="center">
+                <div class="status-light red" id="offLight"></div>
+                <div class="status-light green" id="onLight"></div>
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
     <div class="alert alert-danger" id="notLoggedIn">Start Your Day After Logging</div>
     <div class="alert alert-info text-hidden" id="loggedIn"></div>
     <hr>
@@ -66,7 +83,8 @@
                     <p class="card-text" id="quote_text">Quote Text</p>
                     <h6 class="card-title" id="quote_author">Author</h6>
                     <h5 class="card-subtitle mb-2 text-muted" id="update_date">Update Date</h5>
-                    <textarea id="user_comment" class="form-control" placeholder="Write something here..."></textarea>
+                    <textarea id="user_comment" class="form-control"
+                              placeholder="Write something here..."></textarea>
                     <div class="btn-group" role="group" aria-label="..." style="margin-top: 16px;">
                         <button type="button" class="btn btn-default" id="DailyQuoteBtn">Get</button>
                         <button type="button" class="btn btn-default" id="SaveQuoteBtn">Save</button>

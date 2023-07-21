@@ -1,6 +1,7 @@
 package com.example.security.model;
 
 import com.sun.istack.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import javax.persistence.Column;
@@ -11,12 +12,17 @@ import java.util.Objects;
 
 @Entity
 @Table
+@AllArgsConstructor
 public class Authority {
    @Id
    @Column
    @NotNull
    @Getter
    private String name;
+
+   public Authority() {
+
+   }
 
    @Override
    public boolean equals(Object o) {

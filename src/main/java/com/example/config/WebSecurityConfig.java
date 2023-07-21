@@ -4,11 +4,11 @@ import com.example.security.JwtAccessDeniedHandler;
 import com.example.security.JwtAuthenticationEntryPoint;
 import com.example.security.jwt.JWTConfigurer;
 import com.example.security.jwt.TokenProvider;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -25,8 +25,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private final JwtAuthenticationEntryPoint authenticationErrorHandler;
     private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
 
-    public WebSecurityConfig(
-            TokenProvider tokenProvider, CorsFilter corsFilter, JwtAuthenticationEntryPoint authenticationErrorHandler, JwtAccessDeniedHandler jwtAccessDeniedHandler) {
+    @Autowired
+    public WebSecurityConfig(final TokenProvider tokenProvider, final CorsFilter corsFilter, final JwtAuthenticationEntryPoint authenticationErrorHandler, final JwtAccessDeniedHandler jwtAccessDeniedHandler) {
         this.tokenProvider = tokenProvider;
         this.corsFilter = corsFilter;
         this.authenticationErrorHandler = authenticationErrorHandler;
@@ -39,31 +39,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Override
-    public void configure(WebSecurity web) {
-        web.ignoring()
-                .antMatchers(HttpMethod.OPTIONS, "/**")
-
-                // allow anonymous resource requests
-                .antMatchers(
-                        "/",
-                        "/*.html",
-                        "/favicon.ico",
-                        "/**/*.html",
-                        "/**/*.css",
-                        "/**/*.js",
-                        "/**/*.jpg",
-                        "/h2-console/**"
-                );
-    }
-
-    @Override
-    protected void configure(HttpSecurity httpSecurity) throws Exception {
+    protected void configure(final HttpSecurity httpSecurity) throws Exception {
         httpSecurity
-                // we don't need CSRF because our token is invulnerable
                 .csrf().disable()
-
                 .addFilterBefore(corsFilter, UsernamePasswordAuthenticationFilter.class)
-
                 .exceptionHandling()
                 .authenticationEntryPoint(authenticationErrorHandler)
                 .accessDeniedHandler(jwtAccessDeniedHandler)
@@ -81,17 +60,20 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .and()
                 .authorizeRequests()
+                .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                .antMatchers(
+                        "/",
+                        "/*.html",
+                        "/**/*.css",
+                        "/**/*.js",
+                        "/**/*.jpg",
+                        "/h2-console/**",
+                        "/actuator/health"
+                ).permitAll()
                 .antMatchers("/api/authenticate").permitAll()
-                // .antMatchers("/api/register").permitAll()
-                // .antMatchers("/api/activate").permitAll()
-                // .antMatchers("/api/account/reset-password/init").permitAll()
-                // .antMatchers("/api/account/reset-password/finish").permitAll()
-
-                .antMatchers("/api/person").hasAuthority("ROLE_USER")
                 .antMatchers("/api/users").hasAuthority("ROLE_ADMIN")
 
                 .anyRequest().authenticated()
-
                 .and()
                 .apply(securityConfigurerAdapter());
     }

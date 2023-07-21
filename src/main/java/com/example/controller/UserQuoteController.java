@@ -22,23 +22,23 @@ public class UserQuoteController {
         this.userQuoteService = userQuoteService;
     }
 
-    @GetMapping("/userQuote")
+    @GetMapping(value = "/userQuote", consumes = "application/json", produces = "application/json")
     public ResponseEntity<UserQuoteDto> getRandomUserQuote() {
         return ResponseEntity.ok(userQuoteService.getUserQuoteDtoInRandom());
     }
 
-    @PostMapping("/userQuote")
+    @PostMapping(value = "/userQuote", consumes = "application/json", produces = "application/json")
     public ResponseEntity<UserQuoteDto> createUserQuote(@RequestBody UserQuoteDto userQuoteDto) {
         UserQuoteDto createdUserQuoteDTO = userQuoteService.create(userQuoteDto);
         return new ResponseEntity<>(createdUserQuoteDTO, HttpStatus.CREATED);
     }
 
-    @PutMapping("/userQuote")
+    @PutMapping(value = "/userQuote", consumes = "application/json", produces = "application/json")
     public ResponseEntity<UserQuoteDto> updateUserQuote(@RequestBody UserQuoteDto userQuoteDto) {
         return ResponseEntity.ok(userQuoteService.update(userQuoteDto));
     }
 
-    @PatchMapping("/userQuote/{userQuoteId}")
+    @PatchMapping(value = "/userQuote/{userQuoteId}", consumes = "application/json", produces = "application/json")
     public ResponseEntity<Void> deleteUserQuote(@PathVariable Long userQuoteId) {
         boolean deleted = userQuoteService.softDelete(userQuoteId);
         if (deleted) {
@@ -48,7 +48,7 @@ public class UserQuoteController {
         }
     }
 
-    @GetMapping("/userQuotes")
+    @GetMapping(value = "/userQuotes", consumes = "application/json", produces = "application/json")
     public ResponseEntity<List<UserQuote>> getUserQuotes() {
         return ResponseEntity.ok(userQuoteService.getUserQuotesByUserId());
     }
